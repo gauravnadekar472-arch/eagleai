@@ -8,10 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-
-if (!OPENAI_API_KEY) {
-  console.error("❌ OPENAI_API_KEY missing");
-}
+if (!OPENAI_API_KEY) console.error("❌ OPENAI_API_KEY missing");
 
 // ================= CHAT =================
 app.post("/api/chat", async (req, res) => {
@@ -27,7 +24,6 @@ app.post("/api/chat", async (req, res) => {
         body: JSON.stringify(req.body)
       }
     );
-
     const data = await response.json();
     res.json(data);
   } catch (err) {
@@ -49,7 +45,6 @@ app.post("/api/image", async (req, res) => {
         body: JSON.stringify(req.body)
       }
     );
-
     const data = await response.json();
     res.json(data);
   } catch (err) {
@@ -57,6 +52,8 @@ app.post("/api/image", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("✅ Server running");
+// ================= SERVER START =================
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ API server running on port ${PORT}`);
 });
